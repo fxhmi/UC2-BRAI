@@ -234,7 +234,7 @@ import base64
 
 
 # st.title("SwiftRoute: Smart Route Prediction & Disruption Map ")
-with open("Deployment Code Test/assets/Prasarana_vertical-01-scaled-removebg-preview.jpg", "rb") as img_file:
+with open("assets/Prasarana_vertical-01-scaled-removebg-preview.jpg", "rb") as img_file:
     logo_base64 = base64.b64encode(img_file.read()).decode()
 
 st.markdown("""
@@ -264,16 +264,16 @@ st.markdown("""
 """.format(logo_base64), unsafe_allow_html=True)
 
 
-prasarana_logo_path = 'Deployment Code Test/assets/Rapid_KL_Logo.png'
+prasarana_logo_path = 'assets/Rapid_KL_Logo.png'
 # prasarana_logo_path = '/Users/fahmi.taib/Desktop/Deployment Code Test/Prasarana_vertical-01-scaled-removebg-preview.jpg'
 prasarana_logo = Image.open(prasarana_logo_path)
 prasarana_logo_width = 400
 
-new_icon_path = 'Deployment Code Test/assets/icons8-driver-100.png'
+new_icon_path = 'assets/icons8-driver-100.png'
 new_icon = Image.open(new_icon_path)
 new_icon_width = 400
 
-icon_path = 'Deployment Code Test/assets/icons8-bus-100.png'
+icon_path = 'assets/icons8-bus-100.png'
 icon = Image.open(icon_path)
 icon_width = 400
 
