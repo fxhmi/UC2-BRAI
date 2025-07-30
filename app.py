@@ -6,14 +6,14 @@ import numpy as np
 
 app = FastAPI()
 
-knn = joblib.load('/Users/fahmi.taib/Desktop/Deployment Code Test/Prototype/new arishem design/knn_model.pkl')
-scaler_knn = joblib.load('/Users/fahmi.taib/Desktop/Deployment Code Test/Prototype/new arishem design/scaler_knn.pkl')
-rf = joblib.load('/Users/fahmi.taib/Desktop/Deployment Code Test/Prototype/new arishem design/best_route_model.pkl')
-scaler_rf = joblib.load('/Users/fahmi.taib/Desktop/Deployment Code Test/Prototype/new arishem design/scaler_rf.pkl')
-xgb_ridership = joblib.load('/Users/fahmi.taib/Desktop/Deployment Code Test/Prototype/new arishem design/xgb_ridership_model.pkl')
-xgb_scaler = joblib.load('/Users/fahmi.taib/Desktop/Deployment Code Test/Prototype/new arishem design/xgb_feature_scaler.pkl')
+knn = joblib.load('models/knn_model.pkl')
+scaler_knn = joblib.load('models/scaler_knn.pkl')
+rf = joblib.load('models/best_route_model.pkl')
+scaler_rf = joblib.load('models/scaler_rf.pkl')
+xgb_ridership = joblib.load('models/xgb_ridership_model.pkl')
+xgb_scaler = joblib.load('models/xgb_feature_scaler.pkl')
 
-df = pd.read_csv('/Users/fahmi.taib/Desktop/Deployment Code Test/training_data_converted_strategy_output.csv')
+df = pd.read_csv('training_data_converted_strategy_output.csv')
 
 features_rf = [
     'passenger_on_bus', 'disruption_weather_impact', 'is_weekend', 'is_peak_hour_encoded',
