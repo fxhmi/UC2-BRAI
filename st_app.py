@@ -604,7 +604,7 @@ if st.sidebar.button("Forecast Ridership for Predicted Routes"):
                 "lng_disruption": float(lng),
                 "passenger_on_bus": int(passenger_on_bus),
                 "disruption_weather_impact": int(weather_impact_code),
-                "is_weekend": 1 if disruption_date.weekday() >= 5 else 0,
+                "is_weekend": 1 if today.weekday() >= 5 else 0,
                 "is_peak_hour_encoded": 1 if (7 <= current_hour <= 9 or 17 <= current_hour <= 19) else 0,
                 "bus_replacement_priority": int(bus_replacement_priority_code),
                 "bus_replacement_route_type_encoded": 1,
@@ -800,8 +800,8 @@ else:
 
 
 
-disruption_date = datetime.datetime.now()
-current_hour = disruption_date.hour
+# disruption_date = datetime.datetime.now()
+# current_hour = disruption_date.hour
 
 if "best_route_result" not in st.session_state:
     st.session_state["best_route_result"] = None
@@ -814,7 +814,7 @@ payload_route = {
     "lng_disruption": float(lng),
     "passenger_on_bus": int(passenger_on_bus),
     "disruption_weather_impact": int(weather_impact_code),
-    "is_weekend": 1 if disruption_date.weekday() >= 5 else 0,
+    "is_weekend": 1 if today.weekday() >= 5 else 0,
     "is_peak_hour_encoded": 1 if (7 <= current_hour <= 9 or 17 <= current_hour <= 19) else 0,
     "bus_replacement_priority": int(bus_replacement_priority_code),
     "bus_replacement_route_type_encoded": 1,
