@@ -535,25 +535,29 @@ col_priority, col_datetime = st.sidebar.columns([2, 3])
 
 # Run JavaScript in user's browser to get local time ISO string
 # This returns browser timestamp as ISO 8601 string
+
 js_code = "new Date().toISOString()"
 client_time_iso = st_javascript(js_code, key="get_time")
 
+if client_time_iso is not None:
+    today = datetime.datetime.fromisoformat(client_time_iso.replace("Z", "+00:00"))
 
-today = datetime.datetime.fromisoformat(client_time_iso.replace("Z", "+00:00"))
-
-st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
-
-disrupted_day_of_week = today.weekday()
-disrupted_month = today.month
-disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
-current_hour = today.hour
-disrupted_hours_left = max(0, 24 - current_hour)
-
-with col_priority:
-    st.markdown(f"**Bus Replacement Priority:** {bus_priority_map[bus_replacement_priority_code]}")
-
-with col_datetime:
     st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
+
+    disrupted_day_of_week = today.weekday()
+    disrupted_month = today.month
+    disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
+    current_hour = today.hour
+    disrupted_hours_left = max(0, 24 - current_hour)
+
+    with col_priority:
+        st.markdown(f"**Bus Replacement Priority:** {bus_priority_map[bus_replacement_priority_code]}")
+
+    with col_datetime:
+        st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
+else:
+    st.write("Fetching client local time...")
+
 
 geo_distance_to_disruption = 1.0
 deadmileage_to_disruption = 1.0
