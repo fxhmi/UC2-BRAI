@@ -542,7 +542,7 @@ client_time_iso = st_javascript(js_code, key="get_time")
 if client_time_iso is not None:
     today = datetime.datetime.fromisoformat(client_time_iso.replace("Z", "+00:00"))
 
-    st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
+    #st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
 
     disrupted_day_of_week = today.weekday()
     disrupted_month = today.month
