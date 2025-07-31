@@ -542,8 +542,6 @@ client_time_iso = st_javascript(js_code, key="get_time")
 if client_time_iso is not None:
     today = datetime.datetime.fromisoformat(client_time_iso.replace("Z", "+00:00"))
 
-    #st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
-
     disrupted_day_of_week = today.weekday()
     disrupted_month = today.month
     disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
@@ -766,6 +764,8 @@ if riderships:
         "Forecasted Ridership": [v if v is not None else 0 for v in riderships.values()]
     })
 
+    df["Route"] = df["Route"].astype(str)
+
     # Compute threshold for high ridership
     max_ridership = df['Forecasted Ridership'].max()
     threshold = max_ridership * 0.9  
@@ -793,6 +793,8 @@ if riderships:
         showlegend=False  # Optional: hide color legend since colors are self-explanatory
     )
 
+    fig.update_xaxes(type='category')
+    
     st.plotly_chart(fig, use_container_width=False, width=1300, height=400)
 else:
     st.write(" ")
