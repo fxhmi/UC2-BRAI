@@ -11,7 +11,6 @@ from streamlit_javascript import st_javascript
 API_URL = "https://prasarana-swiftroute-e21358fcb5f7.herokuapp.com"
 
 st.set_page_config(page_title="SwiftRoute", layout="wide")
-
 st.markdown(
     """
     <style>
@@ -525,25 +524,14 @@ else:
 
 col_priority, col_datetime = st.sidebar.columns([2, 3])
 
-
-with col_priority:
-    st.markdown(f"**Bus Replacement Priority:** {bus_priority_map[bus_replacement_priority_code]}")
-
-with col_datetime:
-    st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
-
 # today = datetime.datetime.now()
 
 # disruption_date = datetime.datetime.now()
 # disrupted_day_of_week = disruption_date.weekday()
 # disrupted_month = disruption_date.month
-
 # disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
-
 # current_hour = disruption_date.hour
 # disrupted_hours_left = max(0, 24 - current_hour)
-
-
 
 # Run JavaScript in user's browser to get local time ISO string
 # This returns browser timestamp as ISO 8601 string
@@ -564,7 +552,11 @@ if client_time_iso is not None:
     disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
     current_hour = today.hour
     disrupted_hours_left = max(0, 24 - current_hour)
+    with col_priority:
+        st.markdown(f"**Bus Replacement Priority:** {bus_priority_map[bus_replacement_priority_code]}")
 
+    with col_datetime:
+        st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
 
 else:
     st.write("Fetching client local time...")
