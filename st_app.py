@@ -522,7 +522,6 @@ elif passenger_on_bus >= 20:
 else:
     bus_replacement_priority_code = 3
 
-
 col_priority, col_datetime = st.sidebar.columns([2, 3])
 today = datetime.datetime.now()
 
