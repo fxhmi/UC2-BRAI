@@ -6,6 +6,10 @@ import numpy as np
 
 app = FastAPI()
 
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the API!"}
+
 knn = joblib.load('models/knn_model.pkl')
 scaler_knn = joblib.load('models/scaler_knn.pkl')
 rf = joblib.load('models/best_route_model.pkl')

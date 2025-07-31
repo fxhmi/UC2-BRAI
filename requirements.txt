@@ -73,7 +73,7 @@ watchfiles==1.1.0
 websockets==15.0.1
 xyzservices==2025.4.0
 joblib==1.5.1
-scikit-learn==1.7.1
+scikit-learn==1.6.1
 scipy==1.16.1
 threadpoolctl==3.6.0
 xgboost-cpu
