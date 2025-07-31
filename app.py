@@ -3,8 +3,23 @@ from pydantic import BaseModel
 import joblib
 import pandas as pd
 import numpy as np
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins = [
+    "https://prasarana-swiftroute-e21358fcb5f7.herokuapp.com",
+    "http://localhost",
+    "http://localhost:8501",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():

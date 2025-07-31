@@ -7,6 +7,8 @@ from PIL import Image
 import plotly.express as px
 import pandas as pd
 
+API_URL = "https://prasarana-swiftroute-e21358fcb5f7.herokuapp.com"
+
 st.set_page_config(page_title="SwiftRoute", layout="wide")
 
 st.markdown(
@@ -555,7 +557,7 @@ def forecast_ridership_api(route_no_enc, depot_enc):
         "hours_left": disrupted_hours_left
     }
     try:
-        resp = requests.post("http://localhost:8000/forecast_ridership", json=payload, timeout=30)
+        resp = requests.post(f"{API_URL}/forecast_ridership", json=payload, timeout=30)
         resp.raise_for_status()
         data = resp.json()
         return data.get("forecasted_ridership", None)
@@ -595,7 +597,7 @@ if st.sidebar.button("Forecast Ridership for Predicted Routes"):
             }
 
             try:
-                response_route = requests.post("http://localhost:8000/predict_best_route", json=payload_route, timeout=30)
+                response_route = requests.post(f"{API_URL}/predict_best_route", json=payload_route, timeout=30)
                 response_route.raise_for_status()
                 result_route = response_route.json()
 
