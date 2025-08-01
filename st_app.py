@@ -556,6 +556,7 @@ col_priority, col_datetime = st.sidebar.columns([2, 3])
 # else:
 #     st.write("Fetching client local time...")
 
+
 js_code = """
 (() => {
     const dtf = new Intl.DateTimeFormat('en-CA', {
@@ -568,7 +569,6 @@ js_code = """
       second: '2-digit',
       hour12: false
     });
-
     const [
       { value: year },,
       { value: month },,
@@ -577,24 +577,31 @@ js_code = """
       { value: minute },,
       { value: second }
     ] = dtf.formatToParts(new Date());
-
     return `${year}-${month}-${day}T${hour}:${minute}:${second}`;
 })()
 """
 
 client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
 
+st.write(f"Raw Malaysia time from JS: {repr(client_time_malaysia)}")  # Debug output
+
+today = None  # default if invalid
+
+# Accept only non-empty string matching expected pattern --- very strict can be relaxed if needed
 if isinstance(client_time_malaysia, str) and client_time_malaysia:
-    # safe to strip and parse
-    client_time_malaysia = client_time_malaysia.strip()
-    try:
-        today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%dT%H:%M:%S")
-    except ValueError as e:
-        st.error(f"Time parsing error: {e}")
-        today = None  # or handle fallback
+    stripped_value = client_time_malaysia.strip()
+    # Very basic validation of the format: e.g. expecting 'YYYY-MM-DDTHH:MM:SS'
+    import re
+    iso_like_pattern = r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$"
+    if re.match(iso_like_pattern, stripped_value):
+        try:
+            today = datetime.datetime.strptime(stripped_value, "%Y-%m-%dT%H:%M:%S")
+        except Exception as e:
+            st.error(f"Error parsing Malaysia datetime: {e}")
+    else:
+        st.warning(f"Malaysia datetime string does not match expected pattern: {stripped_value}")
 else:
-    st.write(f"Waiting for valid Malaysia time, received: {repr(client_time_malaysia)}")
-    today = None
+    st.info(f"Waiting for valid Malaysia time from client, received: {repr(client_time_malaysia)}")
 
 if today is not None:
     disrupted_day_of_week = today.weekday()
@@ -608,6 +615,20 @@ if today is not None:
 
     with col_datetime:
         st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
+    
+    # Example safe usage with fallback if today not defined:
+    predictions = {
+        "is_weekend": 1 if today.weekday() >= 5 else 0,
+        # ... other predictions using 'today'
+    }
+else:
+    st.write("Fetching Malaysia local time...")
+
+    # You may want to set a safe default for 'predictions' or skip related code to avoid runtime errors
+    predictions = None  # or some default fallback
+
+
+
 
 
 
