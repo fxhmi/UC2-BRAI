@@ -583,16 +583,20 @@ js_code = """
 """
 
 client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
-st.write(f"Raw client_time_malaysia value: {repr(client_time_malaysia)}")
 
-if client_time_malaysia is not None:
+if isinstance(client_time_malaysia, str) and client_time_malaysia:
+    # safe to strip and parse
     client_time_malaysia = client_time_malaysia.strip()
     try:
         today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%dT%H:%M:%S")
     except ValueError as e:
         st.error(f"Time parsing error: {e}")
-        # handle error or fallback
+        today = None  # or handle fallback
+else:
+    st.write(f"Waiting for valid Malaysia time, received: {repr(client_time_malaysia)}")
+    today = None
 
+if today is not None:
     disrupted_day_of_week = today.weekday()
     disrupted_month = today.month
     disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
@@ -604,8 +608,7 @@ if client_time_malaysia is not None:
 
     with col_datetime:
         st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
-else:
-    st.write("Fetching Malaysia local time...")
+
 
 
 
