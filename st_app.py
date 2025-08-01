@@ -679,8 +679,7 @@ if st.sidebar.button("Forecast Ridership for Predicted Routes"):
     if errors:
         st.error("\n".join(errors))
     else:
-            placeholder = st.empty()
-            placeholder.markdown("⏳ Calling /predict_best_route to get candidate routes...")
+            pass
 
             payload_route = {
                 "lat_disruption": float(lat),
@@ -876,14 +875,14 @@ if riderships:
     fig.update_layout(
         margin=dict(t=50, b=50),
         plot_bgcolor='rgba(0,0,0,0)',
-        showlegend=False  # Optional: hide color legend since colors are self-explanatory
+        showlegend=False  
     )
 
     fig.update_xaxes(type='category')
 
     st.plotly_chart(fig, use_container_width=False, width=1300, height=400)
 else:
-    st.write(" ")
+    pass
 
 
 
@@ -911,8 +910,7 @@ if today is not None:
         "travel_time_min_from_hub": float(travel_time_min_from_hub)
     }
 else:
-    st.error("Client disruption time ('today') is not set. Cannot build payload_route.")
-    # handle this case gracefully, e.g. skip prediction or provide fallback
+    pass
 
 
 #"bus_replacement_route_type_encoded": int(bus_replacement_route_type_code),
