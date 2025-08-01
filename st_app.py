@@ -609,9 +609,9 @@ if isinstance(client_time_malaysia, str) and client_time_malaysia.strip():
         try:
             today = datetime.datetime.strptime(datetime_str, "%Y-%m-%dT%H:%M:%S")
         except Exception as e:
-            st.error(f"Failed to parse Malaysia local datetime: {e}")
+            pass
     else:
-        st.warning(f"Unexpected Malaysia datetime format: {repr(datetime_str)}")
+        pass
 else:
     pass
 
