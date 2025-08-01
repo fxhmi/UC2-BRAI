@@ -585,14 +585,16 @@ js_code = """
 client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
 
 if client_time_malaysia is not None:
-    client_time_malaysia = client_time_malaysia.strip()  # remove extra spaces
+    # it's safe to strip and parse now
+    client_time_malaysia = client_time_malaysia.strip()
 
     try:
         today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%dT%H:%M:%S")
     except ValueError as e:
         st.error(f"Time parsing error: {e}")
-        # optionally handle fallback or raise error
+        # Handle error or fallback
 
+    # Use 'today' for your logic
     disrupted_day_of_week = today.weekday()
     disrupted_month = today.month
     disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
@@ -606,7 +608,6 @@ if client_time_malaysia is not None:
         st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
 else:
     st.write("Fetching Malaysia local time...")
-
 
 geo_distance_to_disruption = 1.0
 deadmileage_to_disruption = 1.0
