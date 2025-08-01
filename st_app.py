@@ -584,11 +584,8 @@ js_code = """
 })()
 """
 
-client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
-# st.write(f"Raw Malaysia time from JS: {repr(client_time_malaysia)}")
-
-today = None
-
+import datetime
+import re
 try:
     import zoneinfo
     malaysia_tz = zoneinfo.ZoneInfo("Asia/Kuala_Lumpur")
@@ -596,45 +593,37 @@ except ImportError:
     import pytz
     malaysia_tz = pytz.timezone("Asia/Kuala_Lumpur")
 
-if today is None:
-    now_utc = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
-    today = now_utc.astimezone(malaysia_tz).replace(tzinfo=None)
-    current_hour = today.hour
+client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
 
-# Validate that client_time_malaysia is a string matching ISO-like format
+today = None
+current_hour = None
+
+now_utc = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
+today = now_utc.astimezone(malaysia_tz).replace(tzinfo=None)
+current_hour = today.hour
+
 if isinstance(client_time_malaysia, str) and client_time_malaysia.strip():
     datetime_str = client_time_malaysia.strip()
     iso_pattern = r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$"
     if re.match(iso_pattern, datetime_str):
         try:
             today = datetime.datetime.strptime(datetime_str, "%Y-%m-%dT%H:%M:%S")
-        except Exception as e:
+            current_hour = today.hour
+        except Exception:
             pass
-    else:
-        pass
-else:
-    pass
 
 if today is not None:
-    disrupted_day_of_week = today.weekday()
-    disrupted_month = today.month
-    disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
-    current_hour = today.hour
-    disrupted_hours_left = max(0, 24 - current_hour)
+    # Create columns only when ready
+    col_priority, col_datetime = st.columns(2)
 
     with col_priority:
         st.markdown(f"**Bus Replacement Priority:** {bus_priority_map[bus_replacement_priority_code]}")
 
     with col_datetime:
         st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
-
-    # predictions = {
-    #     "is_weekend": 1 if today.weekday() >= 5 else 0,
-        # ... other prediction fields here
-    # }
 else:
+    # No output, no columns, no write -> no gaps
     pass
-    # predictions = None
 
 # Make sure anywhere else in your code that uses `predictions` or `today` checks their value first
 
