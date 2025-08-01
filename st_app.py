@@ -582,8 +582,14 @@ js_code = """
 })()
 """
 
-client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
-today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%d %H:%M:%S")
+client_time_malaysia = client_time_malaysia.strip()  # remove extra spaces
+
+try:
+    today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%dT%H:%M:%S")
+except ValueError:
+    # try alternate format with space instead of T
+    today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%d %H:%M:%S")
+
 
 if client_time_malaysia is not None:
     today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%d %H:%M:%S")
