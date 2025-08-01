@@ -589,7 +589,7 @@ js_code = """
 
 client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
 
-st.write(f"Raw Malaysia time from JS: {repr(client_time_malaysia)}")
+# st.write(f"Raw Malaysia time from JS: {repr(client_time_malaysia)}")
 
 today = None
 
@@ -619,7 +619,7 @@ if isinstance(client_time_malaysia, str) and client_time_malaysia.strip():
     else:
         st.warning(f"Unexpected Malaysia datetime format: {repr(datetime_str)}")
 else:
-    st.info(f"Waiting for valid Malaysia time. Current value: {repr(client_time_malaysia)}")
+    st.info(" ")
 
 if today is not None:
     disrupted_day_of_week = today.weekday()
