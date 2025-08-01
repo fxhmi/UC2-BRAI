@@ -694,7 +694,6 @@ if st.sidebar.button("Forecast Ridership for Predicted Routes"):
                 "geo_distance_to_disruption": float(geo_distance_to_disruption),
                 "travel_time_min_from_hub": float(travel_time_min_from_hub)
             }
-            placeholder.empty()
 
             try:
                 response_route = requests.post(f"{API_URL}/predict_best_route", json=payload_route, timeout=30)
