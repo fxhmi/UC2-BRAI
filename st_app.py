@@ -12,6 +12,32 @@ import re
 
 API_URL = "https://prasarana-swiftroute-e21358fcb5f7.herokuapp.com"
 
+js_code = """
+(() => {
+    const dtf = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Kuala_Lumpur',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+
+    const [
+      { value: year },,
+      { value: month },,
+      { value: day },,
+      { value: hour },,
+      { value: minute },,
+      { value: second }
+    ] = dtf.formatToParts(new Date());
+
+    return `${year}-${month}-${day}T${hour}:${minute}:${second}`;
+})()
+"""
+
 st.set_page_config(page_title="SwiftRoute", layout="wide")
 st.markdown(
     """
@@ -558,31 +584,7 @@ col_priority, col_datetime = st.sidebar.columns([2, 3])
 # else:
 #     st.write("Fetching client local time...")
 
-js_code = """
-(() => {
-    const dtf = new Intl.DateTimeFormat('en-CA', {
-      timeZone: 'Asia/Kuala_Lumpur',
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false
-    });
 
-    const [
-      { value: year },,
-      { value: month },,
-      { value: day },,
-      { value: hour },,
-      { value: minute },,
-      { value: second }
-    ] = dtf.formatToParts(new Date());
-
-    return `${year}-${month}-${day}T${hour}:${minute}:${second}`;
-})()
-"""
 
 client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
 # st.write(f"Raw Malaysia time from JS: {repr(client_time_malaysia)}")
