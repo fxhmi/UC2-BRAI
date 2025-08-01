@@ -445,12 +445,12 @@ disruption_places = {
     #     "route_no": "T508",
     #     "depot": "22"
     # },
-    "Stesen MRT Tun Razak Exchange to Taman Maluri / Desa Pandan": {
-        "lat": 3.1600,
-        "lng": 101.7000,
-        "route_no": "T407",
-        "depot": "27"
-    },
+    # "Stesen MRT Tun Razak Exchange to Taman Maluri / Desa Pandan": {
+    #     "lat": 3.1600,
+    #     "lng": 101.7000,
+    #     "route_no": "T407",
+    #     "depot": "27"
+    # },
     # "Terminal Maluri to Titiwangsa": {
     #     "lat": 3.2000,
     #     "lng": 101.7000,
