@@ -593,6 +593,20 @@ st.write(f"Raw Malaysia time from JS: {repr(client_time_malaysia)}")
 
 today = None
 
+import datetime
+
+try:
+    import zoneinfo
+    malaysia_tz = zoneinfo.ZoneInfo("Asia/Kuala_Lumpur")
+except ImportError:
+    import pytz
+    malaysia_tz = pytz.timezone("Asia/Kuala_Lumpur")
+
+if today is None:
+    now_utc = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
+    today = now_utc.astimezone(malaysia_tz).replace(tzinfo=None)
+    current_hour = today.hour
+
 # Validate that client_time_malaysia is a string matching ISO-like format
 if isinstance(client_time_malaysia, str) and client_time_malaysia.strip():
     datetime_str = client_time_malaysia.strip()
@@ -883,20 +897,25 @@ if "best_route_result" not in st.session_state:
 if "candidate_routes_result" not in st.session_state:
     st.session_state["candidate_routes_result"] = None
 
-# Prepare payload for /predict_best_route
-payload_route = {
-    "lat_disruption": float(lat),
-    "lng_disruption": float(lng),
-    "passenger_on_bus": int(passenger_on_bus),
-    "disruption_weather_impact": int(weather_impact_code),
-    "is_weekend": 1 if today.weekday() >= 5 else 0,
-    "is_peak_hour_encoded": 1 if (7 <= current_hour <= 9 or 17 <= current_hour <= 19) else 0,
-    "bus_replacement_priority": int(bus_replacement_priority_code),
-    "bus_replacement_route_type_encoded": 1,
-    "deadmileage_to_disruption": float(deadmileage_to_disruption),
-    "geo_distance_to_disruption": float(geo_distance_to_disruption),
-    "travel_time_min_from_hub": float(travel_time_min_from_hub)
-}
+if today is not None:
+    payload_route = {
+        "lat_disruption": float(lat),
+        "lng_disruption": float(lng),
+        "passenger_on_bus": int(passenger_on_bus),
+        "disruption_weather_impact": int(weather_impact_code),
+        "is_weekend": 1 if today.weekday() >= 5 else 0,
+        "is_peak_hour_encoded": 1 if (7 <= current_hour <= 9 or 17 <= current_hour <= 19) else 0,
+        "bus_replacement_priority": int(bus_replacement_priority_code),
+        "bus_replacement_route_type_encoded": 1,
+        "deadmileage_to_disruption": float(deadmileage_to_disruption),
+        "geo_distance_to_disruption": float(geo_distance_to_disruption),
+        "travel_time_min_from_hub": float(travel_time_min_from_hub)
+    }
+else:
+    st.error("Client disruption time ('today') is not set. Cannot build payload_route.")
+    # handle this case gracefully, e.g. skip prediction or provide fallback
+
+
 #"bus_replacement_route_type_encoded": int(bus_replacement_route_type_code),
 # Prepare payload for /forecast_ridership (for disrupted route)
 payload_ridership = {
