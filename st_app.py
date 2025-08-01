@@ -7,6 +7,8 @@ from PIL import Image
 import plotly.express as px
 import pandas as pd
 from streamlit_javascript import st_javascript
+import re
+
 
 API_URL = "https://prasarana-swiftroute-e21358fcb5f7.herokuapp.com"
 
@@ -556,11 +558,6 @@ col_priority, col_datetime = st.sidebar.columns([2, 3])
 # else:
 #     st.write("Fetching client local time...")
 
-import datetime
-import re
-import streamlit as st
-from streamlit_javascript import st_javascript
-
 js_code = """
 (() => {
     const dtf = new Intl.DateTimeFormat('en-CA', {
@@ -591,8 +588,6 @@ client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
 # st.write(f"Raw Malaysia time from JS: {repr(client_time_malaysia)}")
 
 today = None
-
-import datetime
 
 try:
     import zoneinfo
@@ -633,13 +628,13 @@ if today is not None:
     with col_datetime:
         st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
 
-    predictions = {
-        "is_weekend": 1 if today.weekday() >= 5 else 0,
+    # predictions = {
+    #     "is_weekend": 1 if today.weekday() >= 5 else 0,
         # ... other prediction fields here
     }
 else:
-    st.write("Fetching Malaysia local time...")
-    predictions = None
+    pass
+    # predictions = None
 
 # Make sure anywhere else in your code that uses `predictions` or `today` checks their value first
 
