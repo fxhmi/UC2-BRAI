@@ -583,9 +583,11 @@ js_code = """
 """
 
 client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
+today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%d %H:%M:%S")
 
 if client_time_malaysia is not None:
-    today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%dT%H:%M:%S")
+    today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%d %H:%M:%S")
+
 
     disrupted_day_of_week = today.weekday()
     disrupted_month = today.month
