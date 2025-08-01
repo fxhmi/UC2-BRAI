@@ -631,7 +631,7 @@ if today is not None:
     # predictions = {
     #     "is_weekend": 1 if today.weekday() >= 5 else 0,
         # ... other prediction fields here
-    }
+    # }
 else:
     pass
     # predictions = None
