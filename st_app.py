@@ -585,15 +585,16 @@ js_code = """
 client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
 
 if client_time_malaysia is not None:
-    client_time_malaysia = client_time_malaysia.strip()  # safe to call now
+    # Now it is safe to call string methods like strip()
+    client_time_malaysia = client_time_malaysia.strip()
 
     try:
         today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%dT%H:%M:%S")
     except ValueError as e:
         st.error(f"Time parsing error: {e}")
-        # you can return or handle fallback here
+        # Optionally handle fallback or stop execution here
 
-    # Now you can use 'today' safely
+    # Proceed with your logic
     disrupted_day_of_week = today.weekday()
     disrupted_month = today.month
     disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
