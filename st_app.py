@@ -53,9 +53,14 @@ st.markdown(
         padding-left: 1rem !important;
         padding-right: 1rem !important;
     }
-    h1, p, div, section, .block-container {
-    margin: 0 !important;
-    padding: 0 !important;
+    /* Reduce margin for page title */
+    h1, .css-1v3fvcr h1 {
+        margin-top: 0.1rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+    /* Reduce margin under title and above the first element */
+    section.main > div.block-container > div > div:first-child > div {
+        margin-top: 0.3rem !important;
     }
     /* Button styling and margin reduction */
     .stButton button {
