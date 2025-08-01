@@ -53,14 +53,9 @@ st.markdown(
         padding-left: 1rem !important;
         padding-right: 1rem !important;
     }
-    /* Reduce margin for page title */
-    h1, .css-1v3fvcr h1 {
-        margin-top: 0.1rem !important;
-        margin-bottom: 0.3rem !important;
-    }
-    /* Reduce margin under title and above the first element */
-    section.main > div.block-container > div > div:first-child > div {
-        margin-top: 0.3rem !important;
+    h1, p, div, section, .block-container {
+    margin: 0 !important;
+    padding: 0 !important;
     }
     /* Button styling and margin reduction */
     .stButton button {
@@ -274,7 +269,7 @@ st.markdown("""
             padding-top: 0rem !important;
         }}
     </style>
-    <div style='position: relative; top: -20px; left: 0; right: 0;
+    <div style='position: relative; top: 0px; left: 0; right: 0;
                 width: 1300px; max-width: 95vw; margin: 0 auto;
                 display: flex; align-items: center; justify-content: space-between;
                 padding: 14px 30px 14px 30px;
@@ -552,42 +547,7 @@ else:
 
 col_priority, col_datetime = st.sidebar.columns([2, 3])
 
-#Time 1
-# today = datetime.datetime.now()
-# disruption_date = datetime.datetime.now()
-# disrupted_day_of_week = disruption_date.weekday()
-# disrupted_month = disruption_date.month
-# disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
-# current_hour = disruption_date.hour
-# disrupted_hours_left = max(0, 24 - current_hour)
-
-#Time 2
-# Run JavaScript in user's browser to get local time ISO string
-# This returns browser timestamp as ISO 8601 string
-# js_code = "new Date().toISOString()"
-# client_time_iso = st_javascript(js_code, key="get_time")
-
-# if client_time_iso is not None:
-#     today = datetime.datetime.fromisoformat(client_time_iso.replace("Z", "+00:00"))
-
-#     disrupted_day_of_week = today.weekday()
-#     disrupted_month = today.month
-#     disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
-#     current_hour = today.hour
-#     disrupted_hours_left = max(0, 24 - current_hour)
-
-#     with col_priority:
-#         st.markdown(f"**Bus Replacement Priority:** {bus_priority_map[bus_replacement_priority_code]}")
-
-#     with col_datetime:
-#         st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
-# else:
-#     st.write("Fetching client local time...")
-
-
-
 client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
-# st.write(f"Raw Malaysia time from JS: {repr(client_time_malaysia)}")
 
 today = None
 
