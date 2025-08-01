@@ -582,6 +582,9 @@ js_code = """
 })()
 """
 
+client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
+today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%d %H:%M:%S")
+
 client_time_malaysia = client_time_malaysia.strip()  # remove extra spaces
 
 try:
