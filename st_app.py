@@ -556,6 +556,10 @@ col_priority, col_datetime = st.sidebar.columns([2, 3])
 # else:
 #     st.write("Fetching client local time...")
 
+import datetime
+import streamlit as st
+import re
+from streamlit_javascript import st_javascript
 
 js_code = """
 (() => {
@@ -585,53 +589,46 @@ client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
 
 st.write(f"Raw Malaysia time from JS: {repr(client_time_malaysia)}")  # Debug output
 
-today = None  # default if invalid
+today = None
 
-# Accept only non-empty string matching expected pattern --- very strict can be relaxed if needed
+# Validate the returned client time: check it's a string and matches ISO-like pattern
 if isinstance(client_time_malaysia, str) and client_time_malaysia:
-    stripped_value = client_time_malaysia.strip()
-    # Very basic validation of the format: e.g. expecting 'YYYY-MM-DDTHH:MM:SS'
-    import re
     iso_like_pattern = r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$"
-    if re.match(iso_like_pattern, stripped_value):
+    if re.match(iso_like_pattern, client_time_malaysia.strip()):
         try:
-            today = datetime.datetime.strptime(stripped_value, "%Y-%m-%dT%H:%M:%S")
+            today = datetime.datetime.strptime(client_time_malaysia.strip(), "%Y-%m-%dT%H:%M:%S")
         except Exception as e:
             st.error(f"Error parsing Malaysia datetime: {e}")
     else:
-        st.warning(f"Malaysia datetime string does not match expected pattern: {stripped_value}")
+        st.warning(f"Malaysia datetime string does not match expected pattern: {repr(client_time_malaysia)}")
 else:
     st.info(f"Waiting for valid Malaysia time from client, received: {repr(client_time_malaysia)}")
 
 if today is not None:
+    # Safe to use today
     disrupted_day_of_week = today.weekday()
     disrupted_month = today.month
     disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
     current_hour = today.hour
     disrupted_hours_left = max(0, 24 - current_hour)
 
+    # Render UI blocks as usual
     with col_priority:
         st.markdown(f"**Bus Replacement Priority:** {bus_priority_map[bus_replacement_priority_code]}")
 
     with col_datetime:
         st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
-    
-    # Example safe usage with fallback if today not defined:
+
     predictions = {
         "is_weekend": 1 if today.weekday() >= 5 else 0,
-        # ... other predictions using 'today'
+        # ... add other prediction fields safely here
     }
 else:
+    # today is None: do NOT use it! Show waiting message or fallback UI
     st.write("Fetching Malaysia local time...")
+    predictions = None  # Or set safe default values if needed
 
-    # You may want to set a safe default for 'predictions' or skip related code to avoid runtime errors
-    predictions = None  # or some default fallback
-
-
-
-
-
-
+# Later in your code, check that 'predictions' is valid before using it to avoid further errors.
 
 geo_distance_to_disruption = 1.0
 deadmileage_to_disruption = 1.0
