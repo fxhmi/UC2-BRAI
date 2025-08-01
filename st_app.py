@@ -746,7 +746,7 @@ disrupted_forecast = st.session_state.get("disrupted_route_forecast")
 if disrupted_forecast is not None:
     st.sidebar.markdown(f"**Disrupted Route {disruption_route_no_orig} Forecasted Ridership:** {disrupted_forecast:.0f} passengers")
 else:
-    st.sidebar.markdown("")
+    pass
 
 if ridership_forecasts:
     # Filter out routes with None as a forecast
