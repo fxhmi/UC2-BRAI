@@ -524,8 +524,8 @@ else:
 
 col_priority, col_datetime = st.sidebar.columns([2, 3])
 
+#Time 1
 # today = datetime.datetime.now()
-
 # disruption_date = datetime.datetime.now()
 # disrupted_day_of_week = disruption_date.weekday()
 # disrupted_month = disruption_date.month
@@ -533,14 +533,59 @@ col_priority, col_datetime = st.sidebar.columns([2, 3])
 # current_hour = disruption_date.hour
 # disrupted_hours_left = max(0, 24 - current_hour)
 
+#Time 2
 # Run JavaScript in user's browser to get local time ISO string
 # This returns browser timestamp as ISO 8601 string
+# js_code = "new Date().toISOString()"
+# client_time_iso = st_javascript(js_code, key="get_time")
 
-js_code = "new Date().toISOString()"
-client_time_iso = st_javascript(js_code, key="get_time")
+# if client_time_iso is not None:
+#     today = datetime.datetime.fromisoformat(client_time_iso.replace("Z", "+00:00"))
 
-if client_time_iso is not None:
-    today = datetime.datetime.fromisoformat(client_time_iso.replace("Z", "+00:00"))
+#     disrupted_day_of_week = today.weekday()
+#     disrupted_month = today.month
+#     disrupted_is_holiday = 1 if disrupted_day_of_week >= 5 else 0
+#     current_hour = today.hour
+#     disrupted_hours_left = max(0, 24 - current_hour)
+
+#     with col_priority:
+#         st.markdown(f"**Bus Replacement Priority:** {bus_priority_map[bus_replacement_priority_code]}")
+
+#     with col_datetime:
+#         st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
+# else:
+#     st.write("Fetching client local time...")
+
+js_code = """
+(() => {
+    const dtf = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Kuala_Lumpur',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+
+    const [
+      { value: year },,
+      { value: month },,
+      { value: day },,
+      { value: hour },,
+      { value: minute },,
+      { value: second }
+    ] = dtf.formatToParts(new Date());
+
+    return `${year}-${month}-${day}T${hour}:${minute}:${second}`;
+})()
+"""
+
+client_time_malaysia = st_javascript(js_code, key="get_malaysia_time")
+
+if client_time_malaysia is not None:
+    today = datetime.datetime.strptime(client_time_malaysia, "%Y-%m-%dT%H:%M:%S")
 
     disrupted_day_of_week = today.weekday()
     disrupted_month = today.month
@@ -554,7 +599,7 @@ if client_time_iso is not None:
     with col_datetime:
         st.markdown(f"**Date:** {today.strftime('%d-%m-%Y')}, {today.strftime('%H:%M')}")
 else:
-    st.write("Fetching client local time...")
+    st.write("Fetching Malaysia local time...")
 
 
 geo_distance_to_disruption = 1.0
@@ -794,7 +839,7 @@ if riderships:
     )
 
     fig.update_xaxes(type='category')
-    
+
     st.plotly_chart(fig, use_container_width=False, width=1300, height=400)
 else:
     st.write(" ")
