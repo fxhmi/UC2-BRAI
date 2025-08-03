@@ -275,8 +275,8 @@ st.markdown("""
         }}
     </style>
     <div style='position: relative; top: 0px; left: 0; right: 0;
-                width: 1300px; max-width: 95vw; margin: 0 auto;
-                display: flex; align-items: center; justify-content: space-between;
+                width: 100%; max-width: 100%; margin: 0 auto;
+                display: flex; align-self: normal; justify-content: space-between;
                 padding: 14px 30px 14px 30px;
                 background-color: #ffffffee;
                 border-bottom: 1px solid #ccc;
