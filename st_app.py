@@ -507,13 +507,15 @@ passenger_on_bus = st.sidebar.slider(
     "Passengers on Bus", min_value=0, max_value=60, value=10, step=1,
     help="Number of passengers currently on the bus"
 )
-weather_impact_map = {1: "Bad Weather", 2: "Clear Weather"}
-weather_impact_str = st.sidebar.selectbox(
-    "Weather Condition",
-    options=list(weather_impact_map.values()), index=1,
-    help="Select current weather impact at disruption site"
-)
-weather_impact_code = [k for k, v in weather_impact_map.items() if v == weather_impact_str][0]
+
+weather_impact_map = 2
+# weather_impact_map = {1: "Bad Weather", 2: "Clear Weather"}
+# weather_impact_str = st.sidebar.selectbox(
+#     "Weather Condition",
+#     options=list(weather_impact_map.values()), index=1,
+#     help="Select current weather impact at disruption site"
+# )
+# weather_impact_code = [k for k, v in weather_impact_map.items() if v == weather_impact_str][0]
 
 disruption_route_no_enc = route_no_mapping.get(disruption_route_no_orig.strip(), -1)
 disruption_depot_enc = depot_mapping.get(disruption_depot_orig.strip(), -1)
