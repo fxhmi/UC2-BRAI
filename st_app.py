@@ -827,7 +827,7 @@ if riderships:
         y='Forecasted Ridership',
         color='Color',
         color_discrete_map={'crimson': 'crimson', 'steelblue': 'steelblue'},
-        # title='Forecasted Ridership for Candidate Routes',
+        title='Forecasted Ridership for Candidate Routes',
         labels={'Forecasted Ridership': 'Forecasted Passengers'},
         text='Forecasted Ridership',
         width=1300,
@@ -837,8 +837,15 @@ if riderships:
     fig.update_layout(
         margin=dict(t=50, b=50),
         plot_bgcolor='rgba(0,0,0,0)',
-        showlegend=False  
+        showlegend=False,
+        title={
+            'text': 'Forecasted Ridership for Candidate Routes',
+            'x': 0.5,  # Center the title
+            'xanchor': 'center',
+            'font': dict(family='Arial, sans-serif', size=24, color='darkblue')
+    }
     )
+
 
     fig.update_xaxes(type='category')
 
