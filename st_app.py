@@ -827,7 +827,7 @@ if riderships:
         y='Forecasted Ridership',
         color='Color',
         color_discrete_map={'crimson': 'crimson', 'steelblue': 'steelblue'},
-        title='Forecasted Ridership for Candidate Routes',
+        # title='Forecasted Ridership for Candidate Routes',
         labels={'Forecasted Ridership': 'Forecasted Passengers'},
         text='Forecasted Ridership',
         width=1300,
