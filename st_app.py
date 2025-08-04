@@ -748,7 +748,7 @@ st.markdown(
     <style>
     [title~="st.iframe"] {
         width: 100% !important;
-        height: 500px !important;
+        height: 450px !important;
     }
     </style>
     """,
@@ -803,8 +803,6 @@ folium.Marker(
 ).add_to(m)
 
 folium_static(m, width=1300, height=450)
-
-
 
 riderships = st.session_state.get("ridership_forecasts")
 if riderships:
