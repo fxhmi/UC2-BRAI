@@ -785,7 +785,7 @@ depots = {
     "(SAL) Sungai Buloh": (3.2100, 101.5700),
 }
 
-m = folium.Map(location=[lat, lng], zoom_start=14, tiles='OpenStreetMap', width=1400, height=500)
+m = folium.Map(location=[lat, lng], zoom_start=20, tiles='OpenStreetMap', width=1400, height=500)
 
 for depot_name, coords in depots.items():
     folium.Marker(
@@ -847,8 +847,6 @@ if riderships:
     st.plotly_chart(fig, use_container_width=False, width=1300, height=400)
 else:
     pass
-
-
 
 
 # disruption_date = datetime.datetime.now()
