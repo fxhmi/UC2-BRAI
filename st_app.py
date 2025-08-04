@@ -284,10 +284,10 @@ st.markdown("""
                 border-radius: 16px 16px 0 0;
                 z-index: 1000;'>
         <div style='display: flex; align-items: center; gap: 24px;'>
-            <img src='data:image/png;base64,{0}' width='80' style='border-radius: 12px; box-shadow: 0 0 8px #eee;' />
+            <img src='data:image/png;base64,{0}' width='160' style='border-radius: 12px; box-shadow: 0 0 8px #eee;' />
             <div>
-                <h2 style='margin: 0; color: #1f4e79;'>SwiftRoute: Smart Route Prediction & Disruption Map</h2>
-                <p style='margin: 0; font-size: 17px; color: #444;'>Real-time disruption intelligence for Bus Captain and Operations</p>
+                <h2 style='margin: 0; color: #1f4e79;'>AI Replacement Bus Launch Point Optimisation for Bus Breakdown</h2>
+                <p style='margin: 0; font-size: 19px; color: #444;'>Real-time disruption intelligence for Bus Captain and Operations</p>
             </div>
         </div>
     </div>
@@ -827,7 +827,7 @@ if riderships:
         y='Forecasted Ridership',
         color='Color',
         color_discrete_map={'crimson': 'crimson', 'steelblue': 'steelblue'},
-        title='Ridership Forecasts, Highlighting High Ridership',
+        title='Forecasted Ridership for Candidate Routes',
         labels={'Forecasted Ridership': 'Forecasted Passengers'},
         text='Forecasted Ridership',
         width=1300,
