@@ -509,6 +509,7 @@ passenger_on_bus = st.sidebar.slider(
 )
 
 weather_impact_map = 2
+weather_impact_code = 2
 # weather_impact_map = {1: "Bad Weather", 2: "Clear Weather"}
 # weather_impact_str = st.sidebar.selectbox(
 #     "Weather Condition",
