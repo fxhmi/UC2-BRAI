@@ -750,7 +750,7 @@ st.markdown(
     <style>
     [title~="st.iframe"] {
         width: 100% !important;
-        height: 350px !important;
+        height: 370px !important;
     }
     </style>
     """,
@@ -787,7 +787,7 @@ depots = {
     "(SAL) Sungai Buloh": (3.2100, 101.5700),
 }
 
-m = folium.Map(location=[lat, lng], zoom_start=16, tiles='OpenStreetMap', width=1400, height=350)
+m = folium.Map(location=[lat, lng], zoom_start=16, tiles='OpenStreetMap', width=1400, height=370)
 
 for depot_name, coords in depots.items():
     folium.Marker(
@@ -804,7 +804,7 @@ folium.Marker(
     icon=folium.Icon(color='red', icon='bus', prefix='fa')
 ).add_to(m)
 
-folium_static(m, width=1300, height=350)
+folium_static(m, width=1300, height=370)
 
 riderships = st.session_state.get("ridership_forecasts")
 if riderships:
