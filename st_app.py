@@ -785,7 +785,7 @@ depots = {
     "(SAL) Sungai Buloh": (3.2100, 101.5700),
 }
 
-m = folium.Map(location=[lat, lng], zoom_start=20, tiles='OpenStreetMap', width=1400, height=500)
+m = folium.Map(location=[lat, lng], zoom_start=16, tiles='OpenStreetMap', width=1400, height=450)
 
 for depot_name, coords in depots.items():
     folium.Marker(
