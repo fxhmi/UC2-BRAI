@@ -284,7 +284,7 @@ st.markdown("""
                 border-radius: 16px 16px 0 0;
                 z-index: 1000;'>
         <div style='display: flex; align-items: center; gap: 24px;'>
-            <img src='data:image/png;base64,{0}' width='160' style='border-radius: 12px; box-shadow: 0 0 8px #eee;' />
+            <img src='data:image/png;base64,{0}' width='140' style='border-radius: 12px; box-shadow: 0 0 8px #eee;' />
             <div>
                 <h2 style='margin: 0; color: #1f4e79;'>AI Replacement Bus Launch Point Optimisation for Bus Breakdown</h2>
                 <p style='margin: 0; font-size: 19px; color: #444;'>Real-time disruption intelligence for Bus Captain and Operations</p>
