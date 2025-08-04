@@ -55,16 +55,16 @@ st.markdown(
     }
     /* Reduce margin for page title */
     h1, .css-1v3fvcr h1 {
-        margin-top: 0.1rem !important;
-        margin-bottom: 0.3rem !important;
+        margin-top: 0rem !important;
+        margin-bottom: 0rem !important;
     }
     /* Reduce margin under title and above the first element */
     section.main > div.block-container > div > div:first-child > div {
-        margin-top: 0.3rem !important;
+        margin-top: 0.1rem !important;
     }
     /* Button styling and margin reduction */
     .stButton button {
-        margin-top: 0.15rem !important;
+        margin-top: 0.1rem !important;
         padding-top: 0.5rem !important;
         padding-bottom: 0.5rem !important;
         background-color: #D50000 !important;
@@ -284,7 +284,7 @@ st.markdown("""
                 border-radius: 16px 16px 0 0;
                 z-index: 1000;'>
         <div style='display: flex; align-items: center; gap: 24px;'>
-            <img src='data:image/png;base64,{0}' width='140' style='border-radius: 12px; box-shadow: 0 0 8px #eee;' />
+            <img src='data:image/png;base64,{0}' width='130' style='border-radius: 12px; box-shadow: 0 0 8px #eee;' />
             <div>
                 <h2 style='margin: 0; color: #1f4e79;'>AI Replacement Bus Launch Point Optimisation for Bus Breakdown</h2>
                 <p style='margin: 0; font-size: 19px; color: #444;'>Real-time disruption intelligence for Bus Captain and Operations</p>
@@ -835,7 +835,7 @@ if riderships:
     )
     fig.update_traces(texttemplate='%{text:.0f}', textposition='outside')
     fig.update_layout(
-        margin=dict(t=50, b=50),
+        # margin=dict(t=50, b=50),
         plot_bgcolor='rgba(0,0,0,0)',
         showlegend=False  
     )
