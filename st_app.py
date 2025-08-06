@@ -829,7 +829,7 @@ if st.session_state.guide_step > len(guide_steps) - 1:
     st.session_state.guide_step = 0
 # Sidebar control to toggle guide visibility (optional)
 with st.sidebar:
-    st.checkbox("Show Guide/Tutorial", value=st.session_state.show_guide, key="show_guide")
+    st.checkbox("Show Guided Tour", value=st.session_state.show_guide, key="show_guide")
 
 # Only display guide if toggled on
 if st.session_state.show_guide:
@@ -837,7 +837,7 @@ if st.session_state.show_guide:
         st.markdown("### Guided Tour")
         st.write(guide_steps[st.session_state.guide_step])
         
-        cols = st.columns([1,1,1])
+        cols = st.columns([1,1])
         with cols[0]:
             # Back button, disabled on first step
             if st.button("Back", disabled=st.session_state.guide_step == 0):
@@ -846,9 +846,7 @@ if st.session_state.show_guide:
             # Next button, disabled on last step
             if st.button("Next", disabled=st.session_state.guide_step == len(guide_steps) - 1):
                 st.session_state.guide_step += 1
-        with cols[2]:
-            if st.button("Close Guide"):
-                st.session_state.show_guide = False
+
 
 riderships = st.session_state.get("ridership_forecasts")
 if riderships:
