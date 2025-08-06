@@ -806,6 +806,8 @@ folium.Marker(
 
 folium_static(m, width=1350, height=370)
 
+
+
 # Initialize guide step in session state
 if "guide_step" not in st.session_state:
     st.session_state.guide_step = 0
@@ -816,13 +818,15 @@ if "show_guide" not in st.session_state:
 
 # Your guide steps — customize with your AI app context
 guide_steps = [
-    "Welcome to SwiftRoute AI bus replacement demo! Click 'Next' to start the tour.",
-    "This dashboard shows current bus breakdowns and AI replacement recommendations.",
-    "Use the sidebar controls to simulate a breakdown or view route predictions.",
-    "Interact with the map and buttons to accept or override AI suggestions.",
-    "If you need help, type your question below and the assistant will respond."
+    "Welcome to AI Replacement Bus Launch Point Optimisation for Bus Breakdown demo! Click 'Next' to start the tour.",
+    "The above map shows current bus breakdowns and depots nearby the disrupted bus.",
+    "Use the sidebar controls to choose and simulate a breakdown.",
+    "Click 'Forecast Ridership for Predicted Routes' to get AI predictions for the best replacement bus routes.",
+    "The bar chart below shows forecasted ridership for candidate routes. Red bars indicate high ridership routes."
 ]
 
+if st.session_state.guide_step > len(guide_steps) - 1:
+    st.session_state.guide_step = 0
 # Sidebar control to toggle guide visibility (optional)
 with st.sidebar:
     st.checkbox("Show Guide/Tutorial", value=st.session_state.show_guide, key="show_guide")
