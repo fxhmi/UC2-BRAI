@@ -822,7 +822,8 @@ guide_steps = [
     "The above map shows current bus breakdowns and depots nearby the disrupted bus.",
     "Use the sidebar controls to choose and simulate a breakdown.",
     "Click 'Forecast Ridership for Predicted Routes' to get AI predictions for the best replacement bus routes.",
-    "The bar chart below shows forecasted ridership for candidate routes. Red bars indicate high ridership routes."
+    "The bar chart below shows forecasted ridership for candidate routes. Red bars indicate high ridership routes.",
+    "Thats it! You can now use the AI predictions to optimize bus replacement decisions.",
 ]
 
 if st.session_state.guide_step > len(guide_steps) - 1:
