@@ -262,47 +262,6 @@ st.markdown(
 
 
 
-# Initialize guide step in session state
-if "guide_step" not in st.session_state:
-    st.session_state.guide_step = 0
-
-# Optional: A flag to show/hide the guide
-if "show_guide" not in st.session_state:
-    st.session_state.show_guide = True  # default: show guide on first run
-
-# Your guide steps — customize with your AI app context
-guide_steps = [
-    "Welcome to SwiftRoute AI bus replacement demo! Click 'Next' to start the tour.",
-    "This dashboard shows current bus breakdowns and AI replacement recommendations.",
-    "Use the sidebar controls to simulate a breakdown or view route predictions.",
-    "Interact with the map and buttons to accept or override AI suggestions.",
-    "If you need help, type your question below and the assistant will respond."
-]
-
-# Sidebar control to toggle guide visibility (optional)
-with st.sidebar:
-    st.checkbox("Show Guide/Tutorial", value=st.session_state.show_guide, key="show_guide")
-
-# Only display guide if toggled on
-if st.session_state.show_guide:
-    with st.container():
-        st.markdown("### Guided Tour")
-        st.write(guide_steps[st.session_state.guide_step])
-        
-        cols = st.columns([1,1,1])
-        with cols[0]:
-            # Back button, disabled on first step
-            if st.button("Back", disabled=st.session_state.guide_step == 0):
-                st.session_state.guide_step -= 1
-        with cols[1]:
-            # Next button, disabled on last step
-            if st.button("Next", disabled=st.session_state.guide_step == len(guide_steps) - 1):
-                st.session_state.guide_step += 1
-        with cols[2]:
-            if st.button("Close Guide"):
-                st.session_state.show_guide = False
-
-
 # st.title("SwiftRoute: Smart Route Prediction & Disruption Map ")
 with open("assets/Prasarana_vertical-01-scaled-removebg-preview.jpg", "rb") as img_file:
     logo_base64 = base64.b64encode(img_file.read()).decode()
@@ -846,6 +805,46 @@ folium.Marker(
 ).add_to(m)
 
 folium_static(m, width=1350, height=370)
+
+# Initialize guide step in session state
+if "guide_step" not in st.session_state:
+    st.session_state.guide_step = 0
+
+# Optional: A flag to show/hide the guide
+if "show_guide" not in st.session_state:
+    st.session_state.show_guide = True  # default: show guide on first run
+
+# Your guide steps — customize with your AI app context
+guide_steps = [
+    "Welcome to SwiftRoute AI bus replacement demo! Click 'Next' to start the tour.",
+    "This dashboard shows current bus breakdowns and AI replacement recommendations.",
+    "Use the sidebar controls to simulate a breakdown or view route predictions.",
+    "Interact with the map and buttons to accept or override AI suggestions.",
+    "If you need help, type your question below and the assistant will respond."
+]
+
+# Sidebar control to toggle guide visibility (optional)
+with st.sidebar:
+    st.checkbox("Show Guide/Tutorial", value=st.session_state.show_guide, key="show_guide")
+
+# Only display guide if toggled on
+if st.session_state.show_guide:
+    with st.container():
+        st.markdown("### Guided Tour")
+        st.write(guide_steps[st.session_state.guide_step])
+        
+        cols = st.columns([1,1,1])
+        with cols[0]:
+            # Back button, disabled on first step
+            if st.button("Back", disabled=st.session_state.guide_step == 0):
+                st.session_state.guide_step -= 1
+        with cols[1]:
+            # Next button, disabled on last step
+            if st.button("Next", disabled=st.session_state.guide_step == len(guide_steps) - 1):
+                st.session_state.guide_step += 1
+        with cols[2]:
+            if st.button("Close Guide"):
+                st.session_state.show_guide = False
 
 riderships = st.session_state.get("ridership_forecasts")
 if riderships:
