@@ -845,7 +845,7 @@ folium.Marker(
     icon=folium.Icon(color='red', icon='bus', prefix='fa')
 ).add_to(m)
 
-folium_static(m, width=1200, height=370)
+folium_static(m, width=1350, height=370)
 
 riderships = st.session_state.get("ridership_forecasts")
 if riderships:
@@ -892,7 +892,7 @@ if riderships:
 
     fig.update_xaxes(type='category')
 
-    st.plotly_chart(fig, use_container_width=False, width=1200, height=400)
+    st.plotly_chart(fig, use_container_width=False, width='100%', height=400)
 else:
     pass
 
