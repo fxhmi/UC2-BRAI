@@ -804,7 +804,7 @@ folium.Marker(
     icon=folium.Icon(color='red', icon='bus', prefix='fa')
 ).add_to(m)
 
-folium_static(m, width=1350, height=370)
+folium_static(m, width=1330, height=370)
 
 
 
@@ -875,7 +875,7 @@ if riderships:
         title='Forecasted Ridership for Candidate Routes',
         labels={'Forecasted Ridership': 'Forecasted Passengers'},
         text='Forecasted Ridership',
-        width=1350,
+        width=1330,
         height=400
     )
     fig.update_traces(texttemplate='%{text:.0f}', textposition='outside')
@@ -894,7 +894,7 @@ if riderships:
 
     fig.update_xaxes(type='category')
 
-    st.plotly_chart(fig, use_container_width=False, width=1350, height=400)
+    st.plotly_chart(fig, use_container_width=False, width=1330, height=400)
 else:
     pass
 
