@@ -823,7 +823,7 @@ guide_steps = [
     "3/6 - Use the sidebar controls to choose and simulate a breakdown.",
     "4/6 - Click 'Forecast Ridership for Predicted Routes' to get AI predictions for the best replacement bus routes.",
     "5/6 - The bar chart below shows forecasted ridership for candidate routes. Red bars indicate high ridership routes.",
-    "6/6 - Thats it! You can now use the AI predictions to optimize bus replacement decisions.",
+    "6/6 - That's it! You can now unselect 'Show Guided Tour' at the sidebar and use the AI predictions to optimize bus replacement decisions.",
 ]
 
 if st.session_state.guide_step > len(guide_steps) - 1:
