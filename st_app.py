@@ -818,12 +818,12 @@ if "show_guide" not in st.session_state:
 
 # Your guide steps — customize with your AI app context
 guide_steps = [
-    "Welcome to AI Replacement Bus Launch Point Optimisation for Bus Breakdown demo! Click 'Next' to start the tour.",
-    "The above map shows current bus breakdowns and depots nearby the disrupted bus.",
-    "Use the sidebar controls to choose and simulate a breakdown.",
-    "Click 'Forecast Ridership for Predicted Routes' to get AI predictions for the best replacement bus routes.",
-    "The bar chart below shows forecasted ridership for candidate routes. Red bars indicate high ridership routes.",
-    "Thats it! You can now use the AI predictions to optimize bus replacement decisions.",
+    "1/6 - Welcome to AI Replacement Bus Launch Point Optimisation for Bus Breakdown demo! Click 'Next' to start the tour.",
+    "2/6 - The above map shows current bus breakdowns and depots nearby the disrupted bus.",
+    "3/6 - Use the sidebar controls to choose and simulate a breakdown.",
+    "4/6 - Click 'Forecast Ridership for Predicted Routes' to get AI predictions for the best replacement bus routes.",
+    "5/6 - The bar chart below shows forecasted ridership for candidate routes. Red bars indicate high ridership routes.",
+    "6/6 - Thats it! You can now use the AI predictions to optimize bus replacement decisions.",
 ]
 
 if st.session_state.guide_step > len(guide_steps) - 1:
