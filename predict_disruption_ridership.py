@@ -13,72 +13,54 @@ class DisruptionRidershipPredictor:
     Production-ready with adaptive confidence and risk assessment
     """
     
-    def __init__(self, model_dir='models', data_dir='data'):
-        """Initialize predictor with trained models"""
-        print("="*70)
-        print("📦 Initializing Disruption Ridership Predictor")
-        print("="*70)
+def __init__(self, model_dir='models', data_dir='data'):
+    """Initialize predictor with trained models"""
+    # Remove all print statements
+    self.model_dir = model_dir
+    self.data_dir = data_dir
+    
+    # Load models
+    try:
+        self.model = joblib.load(os.path.join(model_dir, 'xgb_hourly_ridership_model.pkl'))
+        self.scaler = joblib.load(os.path.join(model_dir, 'xgb_hourly_ridership_scaler.pkl'))
+        self.route_encoder = joblib.load(os.path.join(model_dir, 'encoders/route_encoder.pkl'))
+        self.time_cat_encoder = joblib.load(os.path.join(model_dir, 'encoders/time_category_encoder.pkl'))
+    except Exception as e:
+        raise Exception(f"Error loading models: {e}")
+    
+    # Load feature list
+    try:
+        with open(os.path.join(data_dir, 'feature_columns.txt'), 'r') as f:
+            self.feature_columns = [line.strip() for line in f.readlines()]
+    except Exception as e:
+        raise Exception(f"Error loading feature list: {e}")
+    
+    # Load route statistics
+    try:
+        csv_path = os.path.join(data_dir, 'ridership_prepared_hourly.csv')
+        if not os.path.exists(csv_path):
+            csv_path = csv_path + '.gz'
         
-        self.model_dir = model_dir
-        self.data_dir = data_dir
+        df_stats = pd.read_csv(csv_path)
+        df_stats['route_no'] = df_stats['route_no'].astype(str)
         
-        # Load models
-        print("\n📥 Loading models...")
-        try:
-            self.model = joblib.load(os.path.join(model_dir, 'xgb_hourly_ridership_model.pkl'))
-            print("   ✅ XGBoost model loaded")
-            
-            self.scaler = joblib.load(os.path.join(model_dir, 'xgb_hourly_ridership_scaler.pkl'))
-            print("   ✅ Feature scaler loaded")
-            
-            self.route_encoder = joblib.load(os.path.join(model_dir, 'encoders/route_encoder.pkl'))
-            print("   ✅ Route encoder loaded")
-            
-            self.time_cat_encoder = joblib.load(os.path.join(model_dir, 'encoders/time_category_encoder.pkl'))
-            print("   ✅ Time category encoder loaded")
-            
-        except Exception as e:
-            raise Exception(f"❌ Error loading models: {e}")
+        self.route_stats = df_stats.groupby('route_no').agg({
+            'ridership_total': ['mean', 'std', 'max', 'min'],
+            'depot': 'first'
+        }).reset_index()
+        self.route_stats.columns = ['route_no', 'route_avg_ridership', 
+                                     'route_std_ridership', 'route_max_ridership',
+                                     'route_min_ridership', 'depot']
         
-        # Load feature list
-        print("\n📋 Loading feature configuration...")
-        try:
-            with open(os.path.join(data_dir, 'feature_columns.txt'), 'r') as f:
-                self.feature_columns = [line.strip() for line in f.readlines()]
-            print(f"   ✅ {len(self.feature_columns)} features configured")
-        except Exception as e:
-            raise Exception(f"❌ Error loading feature list: {e}")
+        self.hourly_stats = df_stats.groupby(['route_no', 'hour'])['ridership_total'].mean().reset_index()
+        self.hourly_stats.columns = ['route_no', 'hour', 'avg_ridership']
         
-        # Load route statistics
-        print("\n📊 Loading route statistics...")
-        try:
-            df_stats = pd.read_csv(os.path.join(data_dir, 'ridership_prepared_hourly.csv'))
-            
-            # IMPORTANT: Convert all route_no to string for consistency
-            df_stats['route_no'] = df_stats['route_no'].astype(str)
-            
-            self.route_stats = df_stats.groupby('route_no').agg({
-                'ridership_total': ['mean', 'std', 'max', 'min'],
-                'depot': 'first'
-            }).reset_index()
-            self.route_stats.columns = ['route_no', 'route_avg_ridership', 
-                                         'route_std_ridership', 'route_max_ridership',
-                                         'route_min_ridership', 'depot']
-            print(f"   ✅ Statistics for {len(self.route_stats)} routes loaded")
-            
-            # Load hourly averages
-            self.hourly_stats = df_stats.groupby(['route_no', 'hour'])['ridership_total'].mean().reset_index()
-            self.hourly_stats.columns = ['route_no', 'hour', 'avg_ridership']
-            
-            # Load day-of-week averages
-            self.dow_stats = df_stats.groupby(['route_no', 'day_of_week'])['ridership_total'].mean().reset_index()
-            self.dow_stats.columns = ['route_no', 'day_of_week', 'avg_ridership']
-            
-        except Exception as e:
-            raise Exception(f"❌ Error loading route statistics: {e}")
+        self.dow_stats = df_stats.groupby(['route_no', 'day_of_week'])['ridership_total'].mean().reset_index()
+        self.dow_stats.columns = ['route_no', 'day_of_week', 'avg_ridership']
         
-        print("\n✅ Predictor initialized successfully!")
-        print("="*70)
+    except Exception as e:
+        raise Exception(f"Error loading route statistics: {e}")
+
     
     def get_available_routes(self):
         """Get list of all available routes (sorted properly)"""
