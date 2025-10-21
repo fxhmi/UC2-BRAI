@@ -676,7 +676,7 @@ import re
 import base64
 import numpy as np
 
-API_URL = "https://prasarana-swiftroute-e21358fcb5f7.herokuapp.com"
+API_URL = "https://rapidkl-bus-assist-api.onrender.com"
 
 # JavaScript for Malaysia timezone
 js_code = """

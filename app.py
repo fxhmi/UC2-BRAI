@@ -354,7 +354,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 
 origins = [
-    "https://prasarana-swiftroute-e21358fcb5f7.herokuapp.com",
+    "https://rapidkl-bus-assist-api.onrender.com",
     "http://localhost:8501"  
 ]
 
