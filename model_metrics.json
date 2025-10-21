@@ -1,0 +1,9 @@
+{
+    "ridership_model": null,
+    "route_selection_model": {
+        "accuracy": 69.5859398272267,
+        "precision": 57.10186513629842,
+        "recall": 35.535714285714285,
+        "f1": 43.8084755090809
+    }
+}

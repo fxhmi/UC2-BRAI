@@ -1,0 +1,120 @@
+{
+    "train_metrics": {
+        "mae": 9.152857780456543,
+        "rmse": 14.249936823119274,
+        "r2": 0.6350459456443787,
+        "mape": 137.34413385391235
+    },
+    "test_metrics": {
+        "mae": 4.2408623695373535,
+        "rmse": 7.502979195483706,
+        "r2": 0.6950864791870117,
+        "mape": 77.05261707305908
+    },
+    "feature_importance": [
+        {
+            "Feature": "ridership_rolling_3h",
+            "Importance": 0.54430091381073
+        },
+        {
+            "Feature": "route_hour_avg_ridership",
+            "Importance": 0.10919725149869919
+        },
+        {
+            "Feature": "ridership_lag_1d",
+            "Importance": 0.07189798355102539
+        },
+        {
+            "Feature": "depot",
+            "Importance": 0.039840858429670334
+        },
+        {
+            "Feature": "is_weekend",
+            "Importance": 0.021808138117194176
+        },
+        {
+            "Feature": "route_max_ridership",
+            "Importance": 0.019673863425850868
+        },
+        {
+            "Feature": "route_avg_ridership",
+            "Importance": 0.014735097996890545
+        },
+        {
+            "Feature": "route_std_ridership",
+            "Importance": 0.014318092726171017
+        },
+        {
+            "Feature": "route_no_encoded",
+            "Importance": 0.014253681525588036
+        },
+        {
+            "Feature": "time_category_encoded",
+            "Importance": 0.012687873095273972
+        },
+        {
+            "Feature": "is_morning_peak",
+            "Importance": 0.012458057142794132
+        },
+        {
+            "Feature": "hour",
+            "Importance": 0.012129169888794422
+        },
+        {
+            "Feature": "route_dow_avg_ridership",
+            "Importance": 0.011271064169704914
+        },
+        {
+            "Feature": "weekend_hour_interaction",
+            "Importance": 0.010265376418828964
+        },
+        {
+            "Feature": "peak_route_interaction",
+            "Importance": 0.010012601502239704
+        },
+        {
+            "Feature": "ridership_rolling_7d",
+            "Importance": 0.008887827396392822
+        },
+        {
+            "Feature": "day_of_week",
+            "Importance": 0.008764463476836681
+        },
+        {
+            "Feature": "is_public_holiday",
+            "Importance": 0.00868074968457222
+        },
+        {
+            "Feature": "holiday_weekend_interaction",
+            "Importance": 0.008381292223930359
+        },
+        {
+            "Feature": "day_of_year",
+            "Importance": 0.008197203278541565
+        },
+        {
+            "Feature": "ridership_lag_7d",
+            "Importance": 0.007751824334263802
+        },
+        {
+            "Feature": "is_peak_hour",
+            "Importance": 0.0074004181660711765
+        },
+        {
+            "Feature": "week_of_year",
+            "Importance": 0.006376105360686779
+        },
+        {
+            "Feature": "is_evening_peak",
+            "Importance": 0.005706838797777891
+        },
+        {
+            "Feature": "is_school_holiday",
+            "Importance": 0.005607017315924168
+        },
+        {
+            "Feature": "month",
+            "Importance": 0.005396166350692511
+        }
+    ]
+}
